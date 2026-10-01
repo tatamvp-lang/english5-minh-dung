@@ -23,10 +23,10 @@ button.go:hover{background:var(--pri2)}
 </style></head>
 <body><div class="page"><div class="eyebrow">🇬🇧 English 5 · Cambridge Primary English</div><h1>Học tiếng Anh cùng Minh Dũng</h1><p class="sub">Học liệu sơ đồ tư duy song ngữ Anh và Việt, có audio và bài tập.</p>
 <div class="panel" id="lock"><h2>🔒 Nhập mật khẩu / Enter password</h2><div class="row"><input id="pw" type="password" placeholder="Mật khẩu…"><button class="go" id="ok">Vào học / Enter</button></div><div class="msg" id="msg"></div></div>
-<div class="panel" id="list" hidden><h2>📚 Danh sách bài / Lessons</h2><a class="lesson" href="u3a.html"><div><b>Unit 3A · Degrees of comparison</b><span class="s">So sánh hơn và so sánh nhất · Language Focus - Grammar · SB p.61</span></div><span class="go2">Mở bài</span></a></div>
+<div class="panel" id="list" hidden><h2>📚 Danh sách bài / Lessons</h2><a class="lesson" href="u3a.html"><div><b>Unit 3A · Degrees of comparison</b><span class="s">So sánh hơn và so sánh nhất · Language Focus - Grammar · SB p.61</span></div><span class="go2">Mở bài</span></a><a class="lesson" href="u3a-dickinson.html"><div><b>Unit 3A · Reading: Emily Dickinson</b><span class="s">Đọc: nhà thơ Emily Dickinson · Reading Part 2 · Activity 3C · SB pp.62-64</span></div><span class="go2">Mở bài</span></a><a class="lesson" href="u3a-figurative.html"><div><b>Unit 3A · Similes, metaphors and personification</b><span class="s">So sánh, ẩn dụ và nhân hóa · Language Focus - Vocabulary · Activity 3D · SB pp.65-66</span></div><span class="go2">Mở bài</span></a></div>
 <p class="foot">© Học tiếng Anh cùng Minh Dũng · Học liệu nội bộ. Biên soạn theo giáo trình Cambridge Primary English 5 (Marshall Cavendish). Không sao chép hoặc phát tán khi chưa được phép.</p></div>
 <script>
-const CHECK = "1sP9mUIZEmmvIbjeKzBPpSXHkVnSX/BglgRgCmL3A1H25N6aeq3m5H0mnJiKvQ==";
+const CHECK = "rBMiZi2Mz9oXLZYkfK15JfRcIuuY/8HPvj6fvRgrf6geqAFqEheadFjMPR9lBQ==";
 
 async function decrypt(b64, pwd){
   const raw = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
