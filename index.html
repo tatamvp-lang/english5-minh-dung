@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><title>Học tiếng Anh cùng Minh Dũng · English 5</title>
+<style>
+:root{--bg:#F3FBF6;--paper:#fff;--ink:#173A28;--soft:#5C7C6B;--line:#D2ECDD;--pri:#1E7A52;--pri2:#12573A;--gold:#E3A73A}
+@media (prefers-color-scheme:dark){:root{--bg:#0F1C15;--paper:#16261D;--ink:#E6F3EA;--soft:#9DB8A8;--line:#27402F;--pri:#2FAE72;--pri2:#1E7A52}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,Arial,sans-serif;font-size:17px}
+.page{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+h1{margin:6px 0 4px;font-size:30px}.eyebrow{color:var(--pri);font-weight:700;letter-spacing:.04em}.sub{color:var(--soft);margin:0 0 18px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 10px 24px -14px rgba(20,60,42,.25)}
+.panel h2{margin:0 0 8px;font-size:20px}
+input{font:inherit;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);width:100%;max-width:340px}
+button.go{font:inherit;font-weight:700;background:var(--pri);color:#fff;border:0;border-radius:999px;padding:11px 24px;cursor:pointer}
+button.go:hover{background:var(--pri2)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.msg{color:#C62828;font-size:15px;margin-top:8px;min-height:1.2em}
+.lesson{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;text-decoration:none;color:inherit}
+.lesson:hover{border-color:var(--pri)}
+.lesson b{font-size:19px}.lesson span.s{display:block;color:var(--soft);font-size:14.5px}
+.lesson .go2{background:var(--pri);color:#fff;border-radius:999px;padding:8px 18px;font-weight:700;white-space:nowrap}
+.lesson.soon{opacity:.55;pointer-events:none}.lesson.soon .go2{background:var(--soft)}
+.foot{color:var(--soft);font-size:13px;margin-top:26px;line-height:1.5}
+</style></head>
+<body><div class="page"><div class="eyebrow">🇬🇧 English 5 · Cambridge Primary English</div><h1>Học tiếng Anh cùng Minh Dũng</h1><p class="sub">Học liệu sơ đồ tư duy song ngữ Anh và Việt, có audio và bài tập.</p>
+<div class="panel" id="lock"><h2>🔒 Nhập mật khẩu / Enter password</h2><div class="row"><input id="pw" type="password" placeholder="Mật khẩu…"><button class="go" id="ok">Vào học / Enter</button></div><div class="msg" id="msg"></div></div>
+<div class="panel" id="list" hidden><h2>📚 Danh sách bài / Lessons</h2><a class="lesson" href="u3a.html"><div><b>Unit 3A · Degrees of comparison</b><span class="s">So sánh hơn và so sánh nhất · Language Focus - Grammar · SB p.61</span></div><span class="go2">Mở bài</span></a></div>
+<p class="foot">© Học tiếng Anh cùng Minh Dũng · Học liệu nội bộ. Biên soạn theo giáo trình Cambridge Primary English 5 (Marshall Cavendish). Không sao chép hoặc phát tán khi chưa được phép.</p></div>
+<script>
+const CHECK = "1sP9mUIZEmmvIbjeKzBPpSXHkVnSX/BglgRgCmL3A1H25N6aeq3m5H0mnJiKvQ==";
+
+async function decrypt(b64, pwd){
+  const raw = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  const salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
+  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:600000, hash:'SHA-256'}, km, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct);
+  return new TextDecoder().decode(pt);
+}
+
+async function unlock(p){
+  try{ const t = await decrypt(CHECK, p); if (t !== 'ok') throw 0; try{sessionStorage.setItem('eng5pw', p)}catch(e){}
+    document.getElementById('lock').hidden = true; document.getElementById('list').hidden = false; }
+  catch(e){ document.getElementById('msg').textContent = 'Sai mật khẩu. / Wrong password.'; try{sessionStorage.removeItem('eng5pw')}catch(_){} }
+}
+document.getElementById('ok').onclick = () => unlock(document.getElementById('pw').value);
+document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') unlock(e.target.value); });
+let saved = null; try{ saved = sessionStorage.getItem('eng5pw') }catch(e){}
+if (saved) unlock(saved);
+</script></body></html>
